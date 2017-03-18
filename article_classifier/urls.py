@@ -23,5 +23,5 @@ urlpatterns = [
     # WARNING :
     # Your URL pattern '^$' uses include with a regex ending with a '$'.
     # Remove the dollar from the regex to avoid problems including URLs.
-    url(r'^', include('naivebayes.urls')),
+    url(r'^', include('naivebayes.urls', namespace='naivebayes')),
 ]

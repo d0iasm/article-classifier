@@ -1,1 +1,7 @@
-<p>hello, {{ hoge }}</p>
+<form action="{% url 'naivebayes:index' %}" method="post">
+  {{ form }}
+  <br>
+  {{ form.url.label }}
+  {{ form.url }}
+  <button type="submit" name="action" value="send">送信</button>
+</form>
