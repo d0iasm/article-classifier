@@ -1,7 +1,10 @@
 <form action="{% url 'naivebayes:index' %}" method="post">
-  {{ form }}
+  <!-- {{ form }} -->
+  {{ message }}
   <br>
+  {{ form.errors.url }}
   {{ form.url.label }}
   {{ form.url }}
+  <!-- TODO: 送信ボタンを押した後　CSRF verification failed. Request aborted. -->
   <button type="submit" name="action" value="send">送信</button>
 </form>
