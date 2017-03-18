@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world.")
+    context = {
+        'hoge': 'world!'
+    }
+    return render(request, 'naivebayes/index.html', context)

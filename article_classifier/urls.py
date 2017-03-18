@@ -17,7 +17,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    # url(r'^naivebayes/', include('naivebayes.urls')),
-    url(r'^$', include('naivebayes.urls')),
     url(r'^admin/', admin.site.urls),
+    # url(r'^naivebayes/', include('naivebayes.urls')),
+    # url(r'^$', include('naivebayes.urls')),
+    # WARNING :
+    # Your URL pattern '^$' uses include with a regex ending with a '$'.
+    # Remove the dollar from the regex to avoid problems including URLs.
+    url(r'^', include('naivebayes.urls')),
 ]
