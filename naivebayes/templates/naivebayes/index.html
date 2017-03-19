@@ -2,6 +2,7 @@
   <!-- {{ form }} -->
   {{ message }}
   <br>
+  {% csrf_token %}
   {{ form.errors.url }}
   {{ form.url.label }}
   {{ form.url }}

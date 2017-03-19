@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from naivebayes.lib.forms import UrlForm
+from .lib.forms import UrlForm
 
 
 def index(request):
