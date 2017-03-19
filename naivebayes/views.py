@@ -6,11 +6,11 @@ from .lib.forms import UrlForm
 def index(request):
     form = UrlForm(request.POST or None)
     if form.is_valid():
-        message = 'データ検証に成功しました'
+        # message = form.fields['url']
+        message = form.cleaned_data['url']
     else:
-        message = 'データ検証に失敗しました'
+        message = 'ARTICLE URL'
     context = {
-        'hoge': 'world',
         'form': form,
         'message': message
     }
