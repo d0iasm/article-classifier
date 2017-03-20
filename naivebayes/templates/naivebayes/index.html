@@ -1,0 +1,9 @@
+<form action="{% url 'naivebayes:index' %}" method="post">
+  <!-- {{ form }} -->
+  {% csrf_token %}
+  {{ message }}
+  <br>
+  {{ form.errors.url }}
+  {{ form.url }}
+  <button type="submit" name="action" value="send">送信</button>
+</form>
