@@ -5,7 +5,7 @@ class Element(models.Model):
     alpha = models.IntegerField(default=1)
 
 class Category(models.Model):
-    categories = models.CharField(max_length=200)
+    categories = models.CharField(max_length=100)
 
 class CategoryCount(models.Model):
     category = models.OneToOneField(
