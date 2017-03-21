@@ -17,3 +17,9 @@ def index(request):
         'message': message
     }
     return render(request, 'naivebayes/index.html', context)
+
+def learn(request):
+    context = {
+        'hoge': 'hoge',
+    }
+    return render(request, 'naivebayes/learn.html', context)

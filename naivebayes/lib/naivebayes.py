@@ -1,8 +1,12 @@
 import math
+import os
 import sys
 from collections import defaultdict
 
+# path = os.path.join(os.path.dirname(__file__), '../')
+# sys.path.append(path)
 from naivebayes.models import Element, Category, CategoryCount, Feature, FeatureCount
+# TODO: import error
 
 class Feature:
     """ Feature for NaiveBayes"""
