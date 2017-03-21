@@ -2,6 +2,8 @@ import math
 import sys
 from collections import defaultdict
 
+from naivebayes.models import Element, Category, CategoryCount, Feature, FeatureCount
+
 class Feature:
     """ Feature for NaiveBayes"""
 
@@ -20,9 +22,13 @@ class NaiveBayesClassifier:
     """ NaiveBayes """
 
     def __init__(self):
+        element = Element.objects.get(id=1)
+        # categories = Category.objects.all()
+        # features = Feature.objects.all()
 
         # 各カテゴリのデータの数
         self.categories = defaultdict(int)
+        # self.categories = element.categories
 
         # ディクショナリの初期化
         # Featureクラスのインスタンスを格納
@@ -30,11 +36,13 @@ class NaiveBayesClassifier:
         self.features = {}
 
         # 学習されたデータの数
-        self.training_count = 0
+        # self.training_count = 0
+        self.training_count = element.training_count
 
         # ゼロ頻度問題を解決するためスムージングの値
         # alphaの値が1の場合はラプラススムージング
-        self.alpha = 1
+        # self.alpha = 1
+        self.alpha = element.alpha
 
 
     ## 学習フェーズ
@@ -51,6 +59,11 @@ class NaiveBayesClassifier:
 
             # Featureの__setitem__が呼ばれる
             self.features[f][category] += 1
+
+        Element.objects.filter(id=1).update(
+            training_count = self.training_count,
+            alpha = self.alpha
+        )
 
 
     ## 適用フェーズ
