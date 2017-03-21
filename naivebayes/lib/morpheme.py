@@ -13,4 +13,4 @@ class Morpheme:
 
 if __name__ == '__main__':
     morpheme = Morpheme()
-    print(morpheme.analysis('我輩は猫である。名前はまだ無い。'))
+    print(morpheme.analysis('[例]我輩は猫である。名前はまだ無い。'))
