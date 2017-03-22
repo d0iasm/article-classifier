@@ -1,8 +1,5 @@
 <form action="{% url 'naivebayes:learn' %}" method="post">
-  <!-- {{ form }} -->
   {% csrf_token %}
-  {{ message }}
-  <br>
   {{ form.errors }}
   {{ form.category.label }}
   {{ form.category }}
@@ -14,6 +11,6 @@
   <button type="submit" name="reset" value="send">リセット</button>
 </form>
 
-<p>現在の学習結果は{{ message }}です</p>
+<p>現在の学習状況は{{ message }}です</p>
 
 <a href="{% url 'naivebayes:index' %}">戻る</a>

@@ -3,6 +3,7 @@ from janome.tokenizer import Tokenizer
 import re
 import nltk
 
+
 class Morpheme:
     def filter(self, text):
        text = re.sub(r'[a-zA-Z0-9¥"¥.¥,¥@]+', '', text)
@@ -22,7 +23,3 @@ class Morpheme:
             if part_of_speech == u'名詞':
                 noun_list.append(token.surface)
         return noun_list
-
-if __name__ == '__main__':
-    morpheme = Morpheme()
-    print(morpheme.analysis('[例]我輩は猫である。名前はまだ無い。'))

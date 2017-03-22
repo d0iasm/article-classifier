@@ -4,19 +4,6 @@ from collections import defaultdict
 
 from naivebayes.models import Element, Category, Feature, FeatureCategory
 
-# class Feature:
-#     """ Feature for NaiveBayes"""
-#
-#     def __init__(self, name):
-#         self.name = name
-#         self.categories = defaultdict(int)
-#
-#     def __getitem__(self, category):
-#         return self.categories[category]
-#
-#     def __setitem__(self, category, value):
-#         self.categories[category] = value
-
 
 class NaiveBayesClassifier:
     """ NaiveBayes """
@@ -45,7 +32,6 @@ class NaiveBayesClassifier:
         self.alpha = element.alpha
 
 
-    ## 学習フェーズ
     def learn(self, category, features):
         self.training_count += 1
         # self.categories[category] += 1
@@ -124,12 +110,10 @@ class NaiveBayesClassifier:
         )
 
 
-    ## 適用フェーズ
     def classifly(self, features):
         result = None
         max_score = 0
 
-        ## cはcategoriesのkey、つまりカテゴリ名
         for c in self.categories:
             print(c[0])
             break
@@ -149,6 +133,8 @@ class NaiveBayesClassifier:
 
         return result
 
+    def reset(self):
+        pass
 
     def get_alpha(self):
         self.alpha
@@ -160,29 +146,31 @@ class NaiveBayesClassifier:
         return self.training_count
 
 
-def main():
-    # 学習用データ
-    training_data = [["good", [u"よい", u"とても"]],
-                   ["good", [u"よい", u"とても", u"すばらしい"]],
-                   ["good", [u"よい", u"すばらしい", u"見つかりません"]],
-                   ["good", [u"すばらしい"]],
-                   ["bad",  [u"見つかりません", u"買いたくない"]],
-                   ["bad",  [u"よい"]],
-                   ["bad",  [u"買いたくない", u"最悪"]],
-                   ["bad",  [u"最悪"]]]
-
-    # テスト用データ
-    test_data  = [u"よい", u"とても"]
 
 
-    classifier = NaiveBayesClassifier()
-
-    # 学習フェーズ
-    for c, f in training_data:
-      classifier.learn(c, f)
-
-    # 適用フェーズ
-    print (classifier.classifly(test_data))
-
-if __name__ == "__main__":
-    main()
+# def main():
+#     # 学習用データ
+#     training_data = [["good", [u"よい", u"とても"]],
+#                    ["good", [u"よい", u"とても", u"すばらしい"]],
+#                    ["good", [u"よい", u"すばらしい", u"見つかりません"]],
+#                    ["good", [u"すばらしい"]],
+#                    ["bad",  [u"見つかりません", u"買いたくない"]],
+#                    ["bad",  [u"よい"]],
+#                    ["bad",  [u"買いたくない", u"最悪"]],
+#                    ["bad",  [u"最悪"]]]
+#
+#     # テスト用データ
+#     test_data  = [u"よい", u"とても"]
+#
+#
+#     classifier = NaiveBayesClassifier()
+#
+#     # 学習フェーズ
+#     for c, f in training_data:
+#       classifier.learn(c, f)
+#
+#     # 適用フェーズ
+#     print (classifier.classifly(test_data))
+#
+# if __name__ == "__main__":
+#     main()
