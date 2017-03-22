@@ -54,7 +54,7 @@ def learn(request):
             #   classifier.learn(c, f)
 
             # message = classifier.classifly(test_data)
-            message = training_data
+            message = classifier.get_training_count()
 
         elif 'reset' in request.POST:
             message = 'リセット！'
