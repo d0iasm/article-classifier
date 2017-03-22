@@ -111,13 +111,7 @@ class NaiveBayesClassifier:
             # )
 
             # current_feature[0].featurecategory_set.add(new_feature_category)
-            # 注意：
-            # filterでカテゴリを判別しているため（~category)[0].countの部分で最初にヒットしたのを選択）
-            # 似た名前のカテゴリがあったら間違える可能性有り
-            # python manage.py shellで検証：
-            # 全く同じ名前じゃないとフィルターに引っかからないため、大丈夫かも
-            # テスト時に要注意
-            feature_category_count = current_feature[0].featurecategory_set.filter(name=category)[0].count
+            feature_category_count = current_feature[0].featurecategory_set.get(name=category).count
             feature_category_count += 1
             FeatureCategory.objects.filter(name=current_feature[0].name).update(
                 count = feature_category_count
@@ -139,13 +133,12 @@ class NaiveBayesClassifier:
 
             # カテゴリcの出現回数 + α / データの総数 + カテゴリ数 * α (= Pc)
             # score = float(self.categories[c] + self.alpha) / (self.training_count + len(self.categories) * self.alpha)
-            score = float(Category.objects.get(name=c).categorycount.data_count + self.alpha) / (self.training_count + Category.objects.count() * self.alpha)
+            score = float(Category.objects.get(name=c).count + self.alpha) / (self.training_count + Category.objects.count() * self.alpha)
 
             for f in self.features:
                 # 素性fを含むカテゴリcの出現回数 + α / カテゴリcに属するデータの総数 + 2α (= Pf,c)
                 # score *= float(self.features[f][c] + self.alpha) / (self.categories[c] + 2 * self.alpha)
-                score *= float(self.features[f][c] + self.alpha) / (Category.objects.get(name=c).categorycount.data_count + 2 * self.alpha)
-                # TODO: self.features[f][c] をクエリセットの式で置き換え
+                score *= float(Feature.objects.get(name=f).featurecategory_set.get(name=c).count + self.alpha) / (Category.objects.get(name=c).count + 2 * self.alpha)
 
             # scoreが一番高いカテゴリを返す
             if max_score < score:
