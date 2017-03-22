@@ -86,7 +86,8 @@ class NaiveBayesClassifier:
 
                 # self.features[f] = Feature(f)
 
-            if current_feature[1] == True:
+            if current_feature[0].featurecategory_set.filter(name=category).exists() == False:
+            # if current_feature[1] == True:
                 # new_feature_count = FeatureCount(
                 #     feature = current_feature[0],
                 #     data_count = 0

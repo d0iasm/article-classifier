@@ -32,7 +32,7 @@ def learn(request):
             japanese_text = morpheme.filter(res.text)
             noun_list = morpheme.analysis(japanese_text)
             category = form.cleaned_data['category']
-            training_data = [category, noun_list]
+            # training_data = [category, noun_list]
             # training_data = [["good", [u"よい", u"とても"]],
             #                ["good", [u"よい", u"とても", u"すばらしい"]],
             #                ["good", [u"よい", u"すばらしい", u"見つかりません"]],
@@ -52,6 +52,7 @@ def learn(request):
             # too many values to unpack (expected 2)
             # for c, f in training_data:
             #   classifier.learn(c, f)
+            classifier.learn(category, noun_list)
 
             # message = classifier.classifly(test_data)
             message = classifier.get_training_count()
