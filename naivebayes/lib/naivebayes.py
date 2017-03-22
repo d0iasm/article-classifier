@@ -131,19 +131,21 @@ class NaiveBayesClassifier:
 
         ## cはcategoriesのkey、つまりカテゴリ名
         for c in self.categories:
+            print(c[0])
+            break
 
             # カテゴリcの出現回数 + α / データの総数 + カテゴリ数 * α (= Pc)
             # score = float(self.categories[c] + self.alpha) / (self.training_count + len(self.categories) * self.alpha)
-            score = float(Category.objects.get(name=c).count + self.alpha) / (self.training_count + Category.objects.count() * self.alpha)
+            score = float(Category.objects.get(name=c[0]).count + self.alpha) / (self.training_count + Category.objects.count() * self.alpha)
 
             for f in self.features:
                 # 素性fを含むカテゴリcの出現回数 + α / カテゴリcに属するデータの総数 + 2α (= Pf,c)
                 # score *= float(self.features[f][c] + self.alpha) / (self.categories[c] + 2 * self.alpha)
-                score *= float(Feature.objects.get(name=f).featurecategory_set.get(name=c).count + self.alpha) / (Category.objects.get(name=c).count + 2 * self.alpha)
+                score *= float(Feature.objects.get(name=f).featurecategory_set.get(name=c[0]).count + self.alpha) / (c[1] + 2 * self.alpha)
 
             # scoreが一番高いカテゴリを返す
             if max_score < score:
-              result, max_score = c, score
+              result, max_score = c[0], score
 
         return result
 

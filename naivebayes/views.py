@@ -13,7 +13,9 @@ def index(request):
         morpheme = Morpheme()
         res = requests.get(form.cleaned_data['url'])
         japanese_text = morpheme.filter(res.text)
-        message = morpheme.analysis(japanese_text)
+        noun_list = morpheme.analysis(japanese_text)
+        classifier = NaiveBayesClassifier()
+        message = classifier.classifly(noun_list)
     else:
         message = 'ARTICLE URL'
     context = {
@@ -41,9 +43,6 @@ def learn(request):
             #                ["bad",  [u"よい"]],
             #                ["bad",  [u"買いたくない", u"最悪"]],
             #                ["bad",  [u"最悪"]]]
-            # テスト用データ
-
-            test_data  = [u"よい", u"とても"]
 
             classifier = NaiveBayesClassifier()
 
