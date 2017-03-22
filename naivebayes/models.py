@@ -61,6 +61,7 @@ class FeatureCategory(models.Model):
         Feature,
         on_delete = models.CASCADE
     )
+
     name = models.CharField(max_length=100)
     count = models.IntegerField(default=0)
 

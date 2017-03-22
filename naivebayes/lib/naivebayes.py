@@ -59,14 +59,14 @@ class NaiveBayesClassifier:
         #     )
         #     new_category_count.save()
 
-        # category_current_count = current_category[0].categorycount.data_count
-        category_current_count = current_category[0].count
-        category_current_count += 1
+        # category_count = current_category[0].categorycount.data_count
+        category_count = current_category[0].count
+        category_count += 1
         Category.objects.filter(name=current_category[0].name).update(
-            count = category_current_count
+            count = category_count
         )
         # CategoryCount.objects.filter(category=current_category[0]).update(
-        #     data_count = category_current_count
+        #     data_count = category_count
         # )
 
         for f in features:
@@ -87,21 +87,40 @@ class NaiveBayesClassifier:
                 # self.features[f] = Feature(f)
 
             if current_feature[1] == True:
-                new_feature_count = FeatureCount(
+                # new_feature_count = FeatureCount(
+                #     feature = current_feature[0],
+                #     data_count = 0
+                # )
+                # new_feature_count.save()
+                new_feature_category = FeatureCategory(
                     feature = current_feature[0],
-                    data_count = 0
+                    name = category,
+                    count = 0
                 )
-                new_feature_count.save()
+                new_feature_category.save()
 
 
             # Featureの__setitem__が呼ばれる
             # self.features[f][category] += 1
 
             # current_feature = Feature.objects.get(name=f)
-            feature_current_count = current_feature[0].featurecount.data_count
-            feature_current_count += 1
-            FeatureCount.objects.filter(feature=current_feature[0]).update(
-                data_count = feature_current_count
+            # feature_current_count = current_feature[0].featurecount.data_count
+            # feature_current_count += 1
+            # FeatureCount.objects.filter(feature=current_feature[0]).update(
+            #     data_count = feature_current_count
+            # )
+
+            # current_feature[0].featurecategory_set.add(new_feature_category)
+            # 注意：
+            # filterでカテゴリを判別しているため（~category)[0].countの部分で最初にヒットしたのを選択）
+            # 似た名前のカテゴリがあったら間違える可能性有り
+            # python manage.py shellで検証：
+            # 全く同じ名前じゃないとフィルターに引っかからないため、大丈夫かも
+            # テスト時に要注意
+            feature_category_count = current_feature[0].featurecategory_set.filter(name=category)[0].count
+            feature_category_count += 1
+            FeatureCategory.objects.filter(name=current_feature[0].name).update(
+                count = feature_category_count
             )
 
         Element.objects.filter(id=1).update(
