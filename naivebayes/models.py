@@ -6,23 +6,31 @@ class Element(models.Model):
     alpha = models.IntegerField(default=1)
 
 
+# class Category(models.Model):
+#     name = models.CharField(max_length=100)
+#
+#     def __str__(self):
+#         return self.name
+#
+#
+# class CategoryCount(models.Model):
+#     category = models.OneToOneField(
+#         Category,
+#         on_delete = models.CASCADE,
+#         primary_key = True,
+#     )
+#     data_count = models.IntegerField()
+#
+#     def __str__(self):
+#         return self.data_count
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
-
-
-class CategoryCount(models.Model):
-    category = models.OneToOneField(
-        Category,
-        on_delete = models.CASCADE,
-        primary_key = True,
-    )
-    data_count = models.IntegerField()
-
-    def __str__(self):
-        return self.data_count
 
 
 class Feature(models.Model):
@@ -32,13 +40,29 @@ class Feature(models.Model):
         return self.name
 
 
-class FeatureCount(models.Model):
-    feature = models.OneToOneField(
+# class FeatureCount(models.Model):
+#     feature = models.OneToOneField(
+#         Feature,
+#         on_delete = models.CASCADE,
+#         primary_key = True,
+#     )
+#     data_count = models.IntegerField()
+#
+#     def __str__(self):
+#         return self.data_count
+
+class FeatureCategory(models.Model):
+    # feature = models.OneToOneField(
+    #     Feature,
+    #     on_delete = models.CASCADE,
+    #     primary_key = True,
+    # )
+    feature = models.ForeignKey(
         Feature,
-        on_delete = models.CASCADE,
-        primary_key = True,
+        on_delete = models.CASCADE
     )
-    data_count = models.IntegerField()
+    name = models.CharField(max_length=100)
+    count = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.data_count
+        return self.name

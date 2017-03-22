@@ -2,7 +2,7 @@ import math
 import sys
 from collections import defaultdict
 
-from naivebayes.models import Element, Category, CategoryCount, Feature, FeatureCount
+from naivebayes.models import Element, Category, Feature, FeatureCategory
 
 # class Feature:
 #     """ Feature for NaiveBayes"""
@@ -26,7 +26,8 @@ class NaiveBayesClassifier:
 
         # 各カテゴリのデータの数
         # self.categories = defaultdict(int)
-        self.categories = Category.objects.values_list('name', flat=True)
+        # self.categories = Category.objects.values_list('name', flat=True)
+        self.categories = Category.objects.values_list('name', 'count')
 
         # ディクショナリの初期化
         # Featureクラスのインスタンスを格納
@@ -47,24 +48,26 @@ class NaiveBayesClassifier:
     ## 学習フェーズ
     def learn(self, category, features):
         self.training_count += 1
+        # self.categories[category] += 1
 
         current_category = Category.objects.get_or_create(name=category)
         # if category in self.categories:
-        if current_category[1] == True:
-            new_category_count = CategoryCount(
-                category = current_category[0],
-                data_count = 0
-            )
-            new_category_count.save()
+        # if current_category[1] == True:
+        #     new_category_count = CategoryCount(
+        #         category = current_category[0],
+        #         data_count = 0
+        #     )
+        #     new_category_count.save()
 
-        category_current_count = current_category[0].categorycount.data_count
+        # category_current_count = current_category[0].categorycount.data_count
+        category_current_count = current_category[0].count
         category_current_count += 1
-        CategoryCount.objects.filter(category=current_category[0]).update(
-            data_count = category_current_count
+        Category.objects.filter(name=current_category[0].name).update(
+            count = category_current_count
         )
-
-
-        # self.categories[category] += 1
+        # CategoryCount.objects.filter(category=current_category[0]).update(
+        #     data_count = category_current_count
+        # )
 
         for f in features:
 
@@ -80,6 +83,7 @@ class NaiveBayesClassifier:
                 #     data_count = 0
                 # )
                 # new_feature_count.save()
+
                 # self.features[f] = Feature(f)
 
             if current_feature[1] == True:
