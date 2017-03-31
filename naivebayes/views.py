@@ -5,7 +5,7 @@ import requests
 from .lib.forms import AdaptationForms, LearningForms
 from .lib.morpheme import Morpheme
 from .lib.naivebayes import NaiveBayesClassifier
-
+from .lib.training.training import Training
 
 def index(request):
     form = AdaptationForms(request.POST or None)
@@ -29,6 +29,13 @@ def learn(request):
     form = LearningForms(request.POST or None)
 
     classifier = NaiveBayesClassifier()
+    training = Training()
+    message = training.get_data_count
+    # if classifier.get_training_count < training.get_data_count:
+    #     message = 'トレーニング未だ'
+    # else:
+    #     message = 'トレーニング終了'
+
 
     if form.is_valid():
         if 'action' in request.POST:
@@ -43,7 +50,7 @@ def learn(request):
         elif 'reset' in request.POST:
             classifier.reset()
 
-    message = classifier.get_training_count()
+    # message = classifier.get_training_count()
 
     context = {
         'form': form,
