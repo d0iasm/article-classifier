@@ -30,11 +30,11 @@ def learn(request):
 
     classifier = NaiveBayesClassifier()
     training = Training()
-    message = training.get_data_count
-    # if classifier.get_training_count < training.get_data_count:
-    #     message = 'トレーニング未だ'
-    # else:
-    #     message = 'トレーニング終了'
+    if classifier.get_training_count() < training.get_data_count():
+        message = 'トレーニング未だ'
+        training.training()
+    else:
+        message = 'トレーニング終了'
 
 
     if form.is_valid():
@@ -50,7 +50,7 @@ def learn(request):
         elif 'reset' in request.POST:
             classifier.reset()
 
-    # message = classifier.get_training_count()
+    message = classifier.get_training_count()
 
     context = {
         'form': form,
