@@ -125,8 +125,11 @@ class NaiveBayesClassifier:
                 # score *= float(self.features[f][c] + self.alpha) / (self.categories[c] + 2 * self.alpha)
                 # print(Feature.objects.get(name=f))
                 # ERROR: FeatureCategory matching query does not exist.
-                feature_f_c = Feature.objects.get(name=f).featurecategory_set.get_or_create(name=c[0])[0]
-                score *= float(feature_f_c.count + self.alpha) / (c[1] + 2 * self.alpha)
+                if Feature.objects.filter(name=f).exists() == True:
+                    feature_f_c_count = Feature.objects.get(name=f).featurecategory_set.filter(name=c[0])[0].count
+                else:
+                    feature_f_c_count = 0
+                score *= float(feature_f_c_count + self.alpha) / (c[1] + 2 * self.alpha)
 
             # scoreが一番高いカテゴリを返す
             if max_score < score:
