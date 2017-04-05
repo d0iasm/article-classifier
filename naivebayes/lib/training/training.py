@@ -15,9 +15,7 @@ class Training:
         morpheme = Morpheme()
         for one_data in data.training_data:
             res = requests.get(one_data[1])
-            # res = requests.get(form.cleaned_data['url'])
             japanese_text = morpheme.filter(res.text)
             noun_list = morpheme.analysis(japanese_text)
-            # category = form.cleaned_data['category']
             classifier = NaiveBayesClassifier()
             classifier.learn(one_data[0], noun_list)

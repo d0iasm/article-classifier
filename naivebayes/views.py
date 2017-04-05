@@ -31,12 +31,8 @@ def learn(request):
     classifier = NaiveBayesClassifier()
     training = Training()
     if classifier.get_training_count() < training.get_data_count():
-        message = 'トレーニング未だ'
         training.training()
-    else:
-        message = 'トレーニング終了'
 
-    classifier = NaiveBayesClassifier()
     if form.is_valid():
         if 'action' in request.POST:
             morpheme = Morpheme()
@@ -50,6 +46,7 @@ def learn(request):
         elif 'reset' in request.POST:
             classifier.reset()
 
+    classifier = NaiveBayesClassifier()
     message = classifier.get_training_count()
 
     context = {
@@ -58,8 +55,3 @@ def learn(request):
     }
 
     return render(request, 'naivebayes/learn.html', context)
-
-
-def reset(request):
-    classifier = NaiveBayesClassifier()
-    classifier.reset()
