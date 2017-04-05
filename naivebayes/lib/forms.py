@@ -3,7 +3,7 @@ from django import forms
 
 class AdaptationForms(forms.Form):
     url = forms.URLField(
-        label = 'articleURL',
+        label = 'Article URL',
         required = True
     )
 
@@ -13,6 +13,6 @@ class LearningForms(forms.Form):
         required = True
     )
     url = forms.URLField(
-        label = 'articleURL',
+        label = 'Article URL',
         required = True
     )

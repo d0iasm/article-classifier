@@ -15,12 +15,13 @@ def index(request):
         japanese_text = morpheme.filter(res.text)
         noun_list = morpheme.analysis(japanese_text)
         classifier = NaiveBayesClassifier()
-        message = classifier.classifly(noun_list)
+        result = classifier.classifly(noun_list)
     else:
-        message = 'ARTICLE URL'
+        result = '未判定'
+
     context = {
         'form': form,
-        'message': message
+        'result': result
     }
     return render(request, 'naivebayes/index.html', context)
 
