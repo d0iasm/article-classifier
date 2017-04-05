@@ -48,7 +48,7 @@ class NaiveBayesClassifier:
         # category_count = current_category[0].categorycount.data_count
         category_count = current_category[0].count
         category_count += 1
-        Category.objects.filter(name=current_category[0].name).update(
+        Category.objects.filter(name=category).update(
             count = category_count
         )
         # CategoryCount.objects.filter(category=current_category[0]).update(
@@ -100,7 +100,7 @@ class NaiveBayesClassifier:
             # current_feature[0].featurecategory_set.add(new_feature_category)
             feature_category_count = current_feature[0].featurecategory_set.get(name=category).count
             feature_category_count += 1
-            FeatureCategory.objects.filter(name=current_feature[0].name).update(
+            FeatureCategory.objects.filter(name=f).update(
                 count = feature_category_count
             )
 
@@ -125,7 +125,8 @@ class NaiveBayesClassifier:
                 # score *= float(self.features[f][c] + self.alpha) / (self.categories[c] + 2 * self.alpha)
                 # print(Feature.objects.get(name=f))
                 # ERROR: FeatureCategory matching query does not exist.
-                score *= float(Feature.objects.get(name=f).featurecategory_set.get(name=c[0]).count + self.alpha) / (c[1] + 2 * self.alpha)
+                feature_f_c = Feature.objects.get(name=f).featurecategory_set.get_or_create(name=c[0])[0]
+                score *= float(feature_f_c.count + self.alpha) / (c[1] + 2 * self.alpha)
 
             # scoreが一番高いカテゴリを返す
             if max_score < score:

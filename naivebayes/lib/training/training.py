@@ -20,4 +20,4 @@ class Training:
             noun_list = morpheme.analysis(japanese_text)
             # category = form.cleaned_data['category']
             classifier = NaiveBayesClassifier()
-            classifier.learn(category, noun_list)
+            classifier.learn(category[0], noun_list)
