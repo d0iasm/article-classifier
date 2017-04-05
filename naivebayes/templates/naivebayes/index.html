@@ -1,11 +1,19 @@
-<form action="{% url 'naivebayes:index' %}" method="post">
-  <!-- {{ form }} -->
-  {% csrf_token %}
-  {{ message }}
-  <br>
-  {{ form.errors.url }}
-  {{ form.url }}
-  <button type="submit" name="action" value="send">送信</button>
-</form>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'naivebayes/style.css' %}" />
 
-<a href="{% url 'naivebayes:learn' %}">学習</a>
+<div class="wrapper">
+  <form action="{% url 'naivebayes:index' %}" method="post">
+    <!-- {{ form }} -->
+    {% csrf_token %}
+    {{ form.errors.url }}
+    {{ form.url.label }}
+    <br>
+    {{ form.url }}
+    <br>
+    <button type="submit" name="action" value="send">送信</button>
+  </form>
+  <b class="result">
+    {{ result }}
+  </b>
+  <a href="{% url 'naivebayes:learn' %}">学習</a>
+</div>
