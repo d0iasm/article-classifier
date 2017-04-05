@@ -1,16 +1,24 @@
-<form action="{% url 'naivebayes:learn' %}" method="post">
-  {% csrf_token %}
-  {{ form.errors }}
-  {{ form.category.label }}
-  {{ form.category }}
-  <br>
-  {{ form.url.label }}
-  {{ form.url }}
-  <br>
-  <button type="submit" name="action" value="send">送信</button>
-  <button type="submit" name="reset" value="send">リセット</button>
-</form>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'naivebayes/style.css' %}" />
 
-<p>現在の学習状況は{{ message }}です</p>
+<div class="wrapper">
+  <p>現在の学習数は{{ message }}です</p>
+  <form action="{% url 'naivebayes:learn' %}" method="post">
+    {% csrf_token %}
+    {{ form.errors }}
+    {{ form.category.label }}
+    <br>
+    {{ form.category }}
+    <br>
+    <br>
+    {{ form.url.label }}
+    <br>
+    {{ form.url }}
+    <br>
+    <br>
+    <button type="submit" name="action" value="send">送信</button>
+    <button type="submit" name="reset" value="send">リセット</button>
+  </form>
 
-<a href="{% url 'naivebayes:index' %}">戻る</a>
+  <a href="{% url 'naivebayes:index' %}">戻る</a>
+</div>
