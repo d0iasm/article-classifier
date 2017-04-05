@@ -135,7 +135,13 @@ class NaiveBayesClassifier:
         return result
 
     def reset(self):
-        pass
+        Element.objects.filter(id=1).update(
+            training_count = 0,
+            alpha = 1
+        )
+        Category.objects.all().delete()
+        Feature.objects.all().delete()
+        FeatureCategory.objects.all().delete()
 
     def get_alpha(self):
         self.alpha

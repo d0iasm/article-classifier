@@ -36,7 +36,7 @@ def learn(request):
     else:
         message = 'トレーニング終了'
 
-
+    classifier = NaiveBayesClassifier()
     if form.is_valid():
         if 'action' in request.POST:
             morpheme = Morpheme()
@@ -61,4 +61,5 @@ def learn(request):
 
 
 def reset(request):
-    pass
+    classifier = NaiveBayesClassifier()
+    classifier.reset()
