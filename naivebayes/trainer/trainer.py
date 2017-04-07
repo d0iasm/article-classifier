@@ -1,7 +1,7 @@
 import requests
 
-from ..morpheme import Morpheme
-from ..naivebayes import NaiveBayesClassifier
+from ..lib.morpheme import Morpheme
+from ..lib.naivebayes import NaiveBayesClassifier
 
 from . import data
 
