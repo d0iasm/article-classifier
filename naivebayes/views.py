@@ -5,7 +5,8 @@ import requests
 from .lib.forms import AdaptationForms, LearningForms
 from .lib.morpheme import Morpheme
 from .lib.naivebayes import NaiveBayesClassifier
-from .lib.training.training import Training
+from .trainer.trainer import Trainer
+
 
 def index(request):
     form = AdaptationForms(request.POST or None)
@@ -30,9 +31,9 @@ def learn(request):
     form = LearningForms(request.POST or None)
 
     classifier = NaiveBayesClassifier()
-    training = Training()
-    if classifier.get_training_count() < training.get_data_count():
-        training.training()
+    trainer = Trainer()
+    if classifier.get_training_count() < trainer.get_data_count():
+        trainer.training()
 
     if form.is_valid():
         if 'action' in request.POST:
