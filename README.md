@@ -7,14 +7,14 @@ Article Classifier
 
 ## Description
 
-[Gunosy](https://gunosy.com/)内の記事を8つのカテゴリ「エンタメ」、「スポーツ」、「おもしろ」、「国内」、「海外」、「コラム」、「IT・科学」、「グルメ」に分類
+[Gunosy](https://gunosy.com/) 内の記事を8つのカテゴリ「エンタメ」、「スポーツ」、「おもしろ」、「国内」、「海外」、「コラム」、「IT・科学」、「グルメ」に分類
 
 
 ## Demo
 
-``
-python manage.py runserver
-``
+```
+python manage.py runserver  
+```
 Starting development server at http://127.0.0.1:8000/
 
 
